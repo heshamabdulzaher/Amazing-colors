@@ -34,7 +34,6 @@ cards.forEach(singleCard => {
 });
 
 function handleCard(card) {
-  console.log(card);
   let color = card.getAttribute("data-color");
   card.querySelector(".square_color").style.backgroundColor = color;
   card.querySelector(".color_code").setAttribute("value", color);
