@@ -9,10 +9,19 @@ const colors = [
   "#0C2129",
   "#FE4C00",
   "#3498db",
-  "#E33832",
   "#4C5175",
   "#E1E8EC",
-  "#BCE7D9"
+  "#BCE7D9",
+  "#FBDDEC",
+  "#F752A7",
+  "#131E77",
+  "#FEAD32",
+  "#371F72",
+  "#F6EEE4",
+  "#006052",
+  "#FDF0F0",
+  "#1F4172",
+  "#Febbbb"
 ];
 // Create div for each color, Append all of them in their container
 colors.forEach(color => {
