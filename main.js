@@ -147,9 +147,10 @@ cards.forEach(card => {
     let doneImg = document.createElement("img");
     doneImg.setAttribute("src", "./assets/checked.svg");
     copyAnimation.appendChild(doneImg);
-
+    let copyBtn = document.querySelector(".copy_color");
     // Remove all elements
     setTimeout(() => {
+      copyBtn.remove();
       colorCode.remove();
       copyAnimation.remove();
       doneImg.remove();
