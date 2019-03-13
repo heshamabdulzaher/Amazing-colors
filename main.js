@@ -29,51 +29,6 @@
 //   container.innerHTML += newEl;
 // });
 
-// // Hover Animation
-// let cards = document.querySelectorAll(".card");
-// cards.forEach(singleCard => {
-//   handleCard(singleCard);
-//   // Mouse enter
-//   singleCard.addEventListener("mouseenter", e => {
-//     let copyIcon = document.createElement("img");
-//     copyIcon.setAttribute("src", "./img/copy.svg");
-//     singleCard.querySelector(".square_color").appendChild(copyIcon);
-//   });
-//   // Mouse leave
-//   singleCard.addEventListener("mouseleave", e => {
-//     let copyIcon = document.querySelector(".square_color img");
-//     if (copyIcon) {
-//       copyIcon.remove();
-//     }
-//   });
-//   // Click to copy
-//   singleCard.querySelector(".square_color").addEventListener("click", e => {
-//     document.querySelector(".square_color img").remove();
-//     let youJustCopied = document.createElement("div");
-//     youJustCopied.classList.add("you_just_copied");
-//     youJustCopied.style.backgroundColor = singleCard.getAttribute("data-color");
-//     youJustCopied.innerHTML = `<div><img src="./img/checked.svg"><p>You got it!</p></div>`;
-//     singleCard.appendChild(youJustCopied);
-//     let colorCode = singleCard.querySelector(".color_code");
-//     colorCode.select();
-//     document.execCommand("copy");
-//     clearSelection();
-
-//     setTimeout(() => {
-//       youJustCopied.remove();
-//     }, 1500);
-//   });
-// });
-
-// // Clear selection after the user copy the color code
-// function clearSelection() {
-//   if (window.getSelection) {
-//     window.getSelection().removeAllRanges();
-//   } else if (document.selection) {
-//     document.selection.empty();
-//   }
-// }
-
 const myColors = JSON.parse(localStorage.getItem("myColors")) || [];
 
 const cardsWrapper = document.querySelector(".cards_wrapper");
@@ -142,10 +97,52 @@ submitColorBtn.addEventListener("click", function() {
 // Create card for each single item in myColors array
 function handleCards() {}
 myColors.forEach(color => {
-  console.log(color);
   let card = document.createElement("div");
   card.classList.add("card");
   card.setAttribute("data-color", `${color}`);
   card.style.backgroundColor = color;
   cardsWrapper.appendChild(card);
 });
+
+// Handle copy feature
+
+// Hover Animation
+let cards = document.querySelectorAll(".card");
+cards.forEach(card => {
+  // Mouse enter
+  card.addEventListener("mouseenter", e => {
+    let copyIcon = document.createElement("div");
+    copyIcon.classList.add("copy_color");
+    copyIcon.textContent = "COPY";
+    card.appendChild(copyIcon);
+  });
+  // Mouse leave
+  card.addEventListener("mouseleave", e => {
+    let copyIcon = document.querySelector(".copy_color");
+    copyIcon.remove();
+  });
+  // Click to copy
+  card.addEventListener("click", e => {
+    let colorCode = document.createElement("input");
+    colorCode.setAttribute("type", "text");
+    colorCode.setAttribute("value", `${card.getAttribute("data-color")}`);
+    card.appendChild(colorCode);
+    colorCode.select();
+    document.execCommand("copy");
+    clearSelection();
+    setTimeout(() => {
+      colorCode.remove();
+    }, 50);
+  });
+
+  // Copy Animation
+});
+
+// Clear selection after the user copy the color code
+function clearSelection() {
+  if (window.getSelection) {
+    window.getSelection().removeAllRanges();
+  } else if (document.selection) {
+    document.selection.empty();
+  }
+}

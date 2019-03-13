@@ -117,8 +117,11 @@ h2 {
   position: relative;
   cursor: pointer;
   box-shadow: 0 2px 13px rgba(0, 0, 0, 0.16);
-  border: 6px solid #fff;
-  border-radius: 5px;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .add_new {
   background-color: #fff;
@@ -126,4 +129,16 @@ h2 {
   justify-content: center;
   align-items: center;
   border: 2px dashed #ccc;
+}
+
+.card .copy_color {
+  border: 1px solid #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  color: #fff;
+  padding: 8px 20px;
+}
+.card input {
+  transform: scale(0);
+  position: absolute;
 }
