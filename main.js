@@ -1,4 +1,3 @@
-// const container = document.querySelector(".container");
 // const colors = [
 //   "#6d23b8",
 //   "#ffc600",
@@ -66,13 +65,6 @@
 //   });
 // });
 
-// // Get the data-color attr from each card and Set it as background color.
-// function handleCard(card) {
-//   let color = card.getAttribute("data-color");
-//   card.querySelector(".square_color").style.backgroundColor = color;
-//   card.querySelector(".color_code").setAttribute("value", color);
-// }
-
 // // Clear selection after the user copy the color code
 // function clearSelection() {
 //   if (window.getSelection) {
@@ -82,18 +74,22 @@
 //   }
 // }
 
-const myColors = [];
+const myColors = JSON.parse(localStorage.getItem("myColors")) || [];
 
+const cardsWrapper = document.querySelector(".cards_wrapper");
 const addNewColor = document.querySelector(".add_new_color");
 const colorField = document.querySelector(".form input");
 const dialogWrapper = document.querySelector(".dialog_wrapper");
 const submitColorBtn = document.querySelector(".submit_color");
 
+// Open the color form when the user hit on Plus Icon to add one
 function openColorForm() {
   addNewColor.classList.add("active");
   colorField.focus();
   dialogWrapper.style.display = "block";
 }
+// dialogWrapper will open when the form open
+// The user will click on dialogWrapper If he/she click outside on the color form
 dialogWrapper.addEventListener("click", function() {
   addNewColor.classList.remove("active");
   dialogWrapper.style.display = "none";
@@ -119,16 +115,37 @@ colorField.addEventListener("keyup", function(e) {
     }
   }
 
-  // If user hit Enter
+  // If user hit Enter trigger a submit button click
   if (event.keyCode === 13) {
     event.preventDefault();
     submitColorBtn.click();
   }
 });
 
+// If user hit enter || click on Add new Color button
 submitColorBtn.addEventListener("click", function() {
+  // Push the new color to myColors array and update the localStorage
   myColors.push(colorField.value);
-  localStorage.setItem("myColors", myColors);
+  localStorage.setItem("myColors", JSON.stringify(myColors));
+  // Create new card for the new color
+  let card = document.createElement("div");
+  card.classList.add("card");
+  card.setAttribute("data-color", `${colorField.value}`);
+  card.style.backgroundColor = `${colorField.value}`;
+  cardsWrapper.appendChild(card);
+  // Reset my color input (colorField) & make the button disabled & focus on colorField again
   colorField.value = "";
   submitColorBtn.setAttribute("disabled", "");
+  colorField.focus();
+});
+
+// Create card for each single item in myColors array
+function handleCards() {}
+myColors.forEach(color => {
+  console.log(color);
+  let card = document.createElement("div");
+  card.classList.add("card");
+  card.setAttribute("data-color", `${color}`);
+  card.style.backgroundColor = color;
+  cardsWrapper.appendChild(card);
 });
