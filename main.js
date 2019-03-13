@@ -80,14 +80,19 @@ colorField.addEventListener("keyup", function(e) {
 // If user hit enter || click on Add new Color button
 submitColorBtn.addEventListener("click", function() {
   // Push the new color to myColors array and update the localStorage
-  myColors.push(colorField.value);
-  localStorage.setItem("myColors", JSON.stringify(myColors));
-  // Create new card for the new color
-  let card = document.createElement("div");
-  card.classList.add("card");
-  card.setAttribute("data-color", `${colorField.value}`);
-  card.style.backgroundColor = `${colorField.value}`;
-  cardsWrapper.appendChild(card);
+  // if the new color is not exist in myColors []
+  if (!myColors.includes(colorField.value)) {
+    myColors.push(colorField.value);
+    localStorage.setItem("myColors", JSON.stringify(myColors));
+    // Create new card for the new color
+    let card = document.createElement("div");
+    card.classList.add("card");
+    card.setAttribute("data-color", `${colorField.value}`);
+    card.style.backgroundColor = `${colorField.value}`;
+    cardsWrapper.appendChild(card);
+  } else {
+    alert("This color is already exist");
+  }
   // Reset my color input (colorField) & make the button disabled & focus on colorField again
   colorField.value = "";
   submitColorBtn.setAttribute("disabled", "");
@@ -111,18 +116,20 @@ let cards = document.querySelectorAll(".card");
 cards.forEach(card => {
   // Mouse enter
   card.addEventListener("mouseenter", e => {
-    let copyIcon = document.createElement("div");
-    copyIcon.classList.add("copy_color");
-    copyIcon.textContent = "COPY";
-    card.appendChild(copyIcon);
+    let copyBtn = document.createElement("button");
+    copyBtn.classList.add("copy_color");
+    copyBtn.textContent = "COPY";
+    card.appendChild(copyBtn);
   });
   // Mouse leave
   card.addEventListener("mouseleave", e => {
-    let copyIcon = document.querySelector(".copy_color");
-    copyIcon.remove();
+    let copyBtn = document.querySelector(".copy_color");
+    copyBtn.remove();
   });
   // Click to copy
+  // Create 3 elements when I click on the each card
   card.addEventListener("click", e => {
+    // 1- input > to select the color code and copy
     let colorCode = document.createElement("input");
     colorCode.setAttribute("type", "text");
     colorCode.setAttribute("value", `${card.getAttribute("data-color")}`);
@@ -130,12 +137,24 @@ cards.forEach(card => {
     colorCode.select();
     document.execCommand("copy");
     clearSelection();
+
+    // 2- copyAnimation > Show animation when user click, to know he get the color
+    let copyAnimation = document.createElement("div");
+    copyAnimation.classList.add("copy_animation");
+    card.appendChild(copyAnimation);
+
+    // 3- img > checked icon for animation too
+    let doneImg = document.createElement("img");
+    doneImg.setAttribute("src", "./assets/checked.svg");
+    copyAnimation.appendChild(doneImg);
+
+    // Remove all elements
     setTimeout(() => {
       colorCode.remove();
-    }, 50);
+      copyAnimation.remove();
+      doneImg.remove();
+    }, 1000);
   });
-
-  // Copy Animation
 });
 
 // Clear selection after the user copy the color code
