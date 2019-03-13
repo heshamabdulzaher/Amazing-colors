@@ -26,6 +26,9 @@ h2 {
   margin: 0;
   text-align: center;
   font-weight: 400;
+  width: 60%;
+  margin: auto;
+  text-align: center;
 }
 .cards_wrapper {
   width: 90%;
