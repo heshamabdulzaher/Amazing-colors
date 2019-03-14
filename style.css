@@ -147,7 +147,7 @@ h2 {
   transform: scale(0);
   position: absolute;
 }
-.card .copy_animation {
+.card .copy_animation_layer {
   opacity: 0;
   background-color: #000;
   transform-origin: center;
@@ -172,7 +172,7 @@ h2 {
     opacity: 1;
   }
 }
-.card .copy_animation img {
+.card .copy_animation_layer img {
   width: 60%;
   transform: scale(0) rotate(-45deg);
   animation: doneImgAnimation 0.8s forwards cubic-bezier(0.59, 0.01, 0.4, 1)
