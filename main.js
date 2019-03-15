@@ -44,6 +44,8 @@ function handleMouseLeaveEvent(card) {
   });
 }
 
+//
+
 function handleClickEvent(card) {
   card.addEventListener("click", e => {
     // 1- input > to select the color code and copy
@@ -53,7 +55,7 @@ function handleClickEvent(card) {
     card.appendChild(colorCode);
     colorCode.select();
     document.execCommand("copy");
-    clearSelection();
+    // clearSelection();
 
     // 2- copyAnimationLayer > Show animation when user click, to know he get the color
     let copyAnimationLayer = document.createElement("div");
@@ -64,8 +66,21 @@ function handleClickEvent(card) {
     let doneImg = document.createElement("img");
     doneImg.setAttribute("src", "./assets/checked.svg");
     copyAnimationLayer.appendChild(doneImg);
-    let copyBtn = document.querySelector(".copy_color");
+
+    // Create done ring when user got the color
+    let doneRingAudioTag = document.createElement("audio");
+    doneRingAudioTag.setAttribute("autoplay", "");
+    doneRingAudioTag.style.transform = "scale(0)";
+    card.appendChild(doneRingAudioTag);
+
+    let doneRingAudioSrc = document.createElement("source");
+    doneRingAudioSrc.setAttribute("src", "./assets/done.mp3");
+    doneRingAudioSrc.setAttribute("type", "audio/mpeg");
+    doneRingAudioTag.appendChild(doneRingAudioSrc);
+
+    // Append that elements I created within the card
     // Remove all elements
+    let copyBtn = document.querySelector(".copy_color");
     setTimeout(() => {
       copyBtn.remove();
       colorCode.remove();
