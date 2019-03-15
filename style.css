@@ -134,7 +134,7 @@ h2 {
   border: 2px dashed #ccc;
 }
 
-.card .copy_color {
+.card .copy_color_btn {
   border: 1px solid #fff;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 2px;

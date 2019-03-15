@@ -31,7 +31,7 @@ if (myColors.length > 0) {
 function handleMouseEnterEvent(card) {
   card.addEventListener("mouseenter", e => {
     let copyBtn = document.createElement("button");
-    copyBtn.classList.add("copy_color");
+    copyBtn.classList.add("copy_color_btn");
     copyBtn.textContent = "COPY";
     card.appendChild(copyBtn);
   });
@@ -39,7 +39,7 @@ function handleMouseEnterEvent(card) {
 
 function handleMouseLeaveEvent(card) {
   card.addEventListener("mouseleave", e => {
-    let copyBtn = document.querySelector(".copy_color");
+    let copyBtn = document.querySelector(".copy_color_btn");
     copyBtn.remove();
   });
 }
@@ -80,7 +80,7 @@ function handleClickEvent(card) {
 
     // Append that elements I created within the card
     // Remove all elements
-    let copyBtn = document.querySelector(".copy_color");
+    let copyBtn = document.querySelector(".copy_color_btn");
     setTimeout(() => {
       copyBtn.remove();
       colorCode.remove();
